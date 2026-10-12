@@ -1,0 +1,21 @@
+
+from pathlib import Path
+import torch
+
+from app.model import MODEL, WEIGHTS
+
+Path("models").mkdir(exist_ok=True)
+
+checkpoint = {
+    "architecture": "ResNet50",
+    "weights": "ImageNet-1K V2",
+    "state_dict": {
+        key: value.detach().cpu()
+        for key, value in MODEL.state_dict().items()
+    },
+    "classes": WEIGHTS.meta["categories"]
+}
+
+torch.save(checkpoint, "models/resnet50.pth")
+
+print("Saved models/resnet50.pth")

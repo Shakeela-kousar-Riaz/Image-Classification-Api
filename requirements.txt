@@ -1,0 +1,11 @@
+
+torch
+torchvision
+fastapi
+uvicorn[standard]
+python-multipart
+pillow
+scikit-learn
+matplotlib
+pytest
+httpx

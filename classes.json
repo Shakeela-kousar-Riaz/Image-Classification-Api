@@ -1,0 +1,30 @@
+import json
+from pathlib import Path
+from torchvision.models import ResNet50_Weights
+
+try:
+    from torchvision.models import ResNet50_Weights
+
+    weights = ResNet50_Weights.DEFAULT
+    classes = weights.meta["categories"]
+
+    output_dir = Path(__file__).parent / "app"
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    output_file = output_dir / "classes.json"
+
+    with open(output_file, "w", encoding="utf-8") as file:
+        json.dump(classes, file, indent=2)
+
+    print(f"Success! Saved {len(classes)} classes.")
+    print(f"File location: {output_file.resolve()}")
+
+except ImportError as error:
+    print("PyTorch or TorchVision is not installed correctly.")
+    print("Run: python -m pip install torch torchvision")
+    print(f"Details: {error}")
+
+except Exception as error:
+    print("Could not generate the class list.")
+    print("Check your installation and internet connection.")
+    print(f"Error: {type(error).__name__}: {error}")
